@@ -1,7 +1,7 @@
 # Provider
 provider "aws" {
-#  access_key = "${var.aws_access_key}"
-#  secret_key = "${var.aws_secret_key}"
+  #  access_key = "${var.aws_access_key}"
+  #  secret_key = "${var.aws_secret_key}"
   region = var.region
 }
 
@@ -70,14 +70,14 @@ resource "aws_route_table_association" "public_assoc" {
 
 # Elastic IP for NAT Gateway
 resource "aws_eip" "nat" {
-  domain = "vpc"
+  domain     = "vpc"
   depends_on = [aws_internet_gateway.igw]
 }
 
 # NAT Gateway
 resource "aws_nat_gateway" "nat" {
   allocation_id = aws_eip.nat.id
-  subnet_id     = aws_subnet.public.id  # NAT must be in public subnet
+  subnet_id     = aws_subnet.public.id # NAT must be in public subnet
   depends_on    = [aws_internet_gateway.igw]
 
   tags = {

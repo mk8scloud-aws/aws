@@ -1,7 +1,7 @@
 variable "vpc_name" {
   description = "Project Name"
-  type = string
-  default = "murali_aws_basic_vpc"
+  type        = string
+  default     = "murali_aws_basic_vpc"
 }
 
 variable "public_subnet_cidr" {
@@ -18,11 +18,11 @@ variable "availability_zone" {
 
 variable "vpc_cidr" {
   description = "Desired CIDR of VPC"
-  type = string
-  default = "10.0.1.0/16"
+  type        = string
+  default     = "10.0.1.0/16"
 }
 variable "region" {
   description = "AWS region to launch servers"
-  type = string
-  default = "us-west-2"
+  type        = string
+  default     = "us-west-2"
 }
