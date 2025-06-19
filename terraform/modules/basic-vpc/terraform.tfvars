@@ -1,0 +1,7 @@
+#aws_access_key       = "YOUR_AWS_ACCESS_KEY"
+#aws_secret_key       = "YOUR_AWS_SECRET_KEY"
+region               = "us-west-2"
+vpc_cidr             = "10.0.0.0/16"
+public_subnet_cidr   = "10.0.1.0/24"
+private_subnet_cidr  = "10.0.2.0/24"
+availability_zone    = "us-west-2a"
