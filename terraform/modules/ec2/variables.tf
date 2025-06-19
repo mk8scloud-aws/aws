@@ -4,7 +4,7 @@ variable "instance_type" {
 
 variable "ami_id" {
   description = "Ubuntu AMI ID for your region"
-  default     = "ami-05f991c49d264708f"  # Example: Ubuntu 22.04 in us-west-2, Free Tier
+  default     = "ami-05f991c49d264708f" # Example: Ubuntu 22.04 in us-west-2, Free Tier
 }
 
 variable "public_key_path" {
