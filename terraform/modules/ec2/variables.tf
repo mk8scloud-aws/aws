@@ -1,13 +1,32 @@
-variable "instance_type" {
-  default = "t2.micro"
-}
+
 
 variable "ami_id" {
-  description = "Ubuntu AMI ID for your region"
-  default     = "ami-05f991c49d264708f" # Example: Ubuntu 22.04 in us-west-2, Free Tier
+  type        = string
+  description = "AMI ID to launch EC2"
+   default     = "ami-05f991c49d264708f" # Example: Ubuntu 22.04 in us-west-2, Free Tier
+}
+
+variable "instance_type" {
+  type        = string
+  description = "EC2 instance type"
 }
 
 variable "public_key_path" {
-  description = "Path to your SSH public key file"
-  default     = "~/.ssh/id_rsa.pub"
+  type        = string
+  description = "Path to the SSH public key file"
+}
+
+variable "vpc_name" {
+  type        = string
+  description = "VPC name tag"
+}
+
+variable "public_subnet_id" {
+  type        = string
+  description = "ID of the public subnet"
+}
+
+variable "security_group_id" {
+  type        = string
+  description = "ID of the security group"
 }
