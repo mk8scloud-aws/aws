@@ -8,11 +8,11 @@ module "vpc" {
 }
 
 module "ec2" {
-  source          = "./modules/ec2"
-  ami_id          = "ami-05f991c49d264708f"
-  instance_type   = "t2.micro"
-  public_key_path = "~/.ssh/id_rsa.pub"
-  vpc_name        = "mk-aws-vpc"
+  source            = "./modules/ec2"
+  ami_id            = "ami-05f991c49d264708f"
+  instance_type     = "t2.micro"
+  public_key_path   = "/Users/murali.kanaga/.ssh/id_ed25519.pub"
+  vpc_name          = "mk-aws-vpc"
   public_subnet_id  = module.vpc.public_subnet_id
   security_group_id = module.vpc.security_group_id
 }
