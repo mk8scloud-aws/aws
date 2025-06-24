@@ -30,3 +30,11 @@ variable "security_group_id" {
   type        = string
   description = "ID of the security group"
 }
+variable "private_subnet_id" {
+  type        = string
+  description = "Private subnet ID for the internal Ubuntu VM"
+}
+variable "private_vm_sg" {
+  type        = string
+  description = "Private Security Group for the internal Ubuntu VM"
+}

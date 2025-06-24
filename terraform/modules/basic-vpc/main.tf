@@ -106,9 +106,9 @@ resource "aws_route_table_association" "private_assoc" {
 }
 
 # Security Group: Allow SSH in, All Out
-resource "aws_security_group" "default" {
-  name        = "${var.vpc_name}-sg"
-  description = "Allow SSH in and all out"
+resource "aws_security_group" "bastion_sg" {
+  name        = "${var.vpc_name}-bastion-sg"
+  description = "Allow SSH from my external IP ONLY."
   vpc_id      = aws_vpc.main.id
 
   ingress {
@@ -116,7 +116,7 @@ resource "aws_security_group" "default" {
     from_port   = 22
     to_port     = 22
     protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"] # You can restrict this to your IP
+    cidr_blocks = ["98.47.16.88/32"] # You can restrict this to your IP
   }
 
   egress {
@@ -127,6 +127,30 @@ resource "aws_security_group" "default" {
   }
 
   tags = {
-    Name = "${var.vpc_name}-sg"
+    Name = "${var.vpc_name}-bastion-sg"
   }
 }
+
+resource "aws_security_group" "private_vm_sg" {
+  name   = "private-vm-ssh"
+  vpc_id = aws_vpc.main.id
+
+  ingress {
+    from_port       = 22
+    to_port         = 22
+    protocol        = "tcp"
+    security_groups = [aws_security_group.bastion_sg.id]
+  }
+
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  tags = {
+    Name = "${var.vpc_name}-private-vm-sg"
+  }
+}
+
