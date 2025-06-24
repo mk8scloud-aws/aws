@@ -1,6 +1,6 @@
-export the aws id & secrets as env. variables, then run:
+Export the aws id & secrets as env. variables, then run:
 
-terraform fmr, init, plan & apply
+~/home_Network/github/aws/terraform
+terraform fmt, init, plan & apply
 
-It will create vpc, external public subnet and private subnet
-
+It will create vpc, external public subnet private subnet and an EC2 vm.
