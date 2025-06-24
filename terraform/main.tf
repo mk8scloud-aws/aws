@@ -34,6 +34,20 @@ module "ec2" {
 */
 
 ##deepseek
+
+# Read the existing public key file
+locals {
+  ssh_public_key = file("/Users/murali.kanaga/.ssh/id_ed25519.pub")
+}
+
+# Create AWS key pair using your existing public key
+resource "aws_key_pair" "my_key" {
+  key_name   = "murali-key" # Choose a name for your AWS key pair
+  public_key = local.ssh_public_key
+}
+
+
+
 module "vpc" {
   source              = "./modules/basic-vpc"
   vpc_cidr            = "10.0.0.0/16"
@@ -69,9 +83,11 @@ resource "aws_security_group" "private_instance" {
   vpc_id      = module.vpc.vpc_id
 
   ingress {
-    from_port   = 22
-    to_port     = 22
-    protocol    = "tcp"
+    from_port = 22
+    to_port   = 22
+    protocol  = "tcp"
+    #  cidr_blocks = [module.vpc.vpc_cidr]
+    #  cidr_blocks = [var.vpc_cidr]
     cidr_blocks = [module.vpc.vpc_cidr]
   }
 
@@ -84,23 +100,23 @@ resource "aws_security_group" "private_instance" {
 }
 
 module "public_instance" {
-  source             = "./modules/ec2-instance"
-#  ami_id             = "ami-05f991c49d264708f"
+  source = "./modules/ec2-instance"
+  #  ami_id             = "ami-05f991c49d264708f"
   instance_type      = "t2.micro"
   instance_name      = "public-instance"
   subnet_id          = module.vpc.public_subnet_id
   is_public          = true
-  key_name           = "your-key-pair-name"
+  key_name           = aws_key_pair.my_key.key_name
   security_group_ids = [aws_security_group.public_instance.id]
 }
 
 module "private_instance" {
-  source             = "./modules/ec2-instance"
-#  ami_id             = "ami-05f991c49d264708f"
+  source = "./modules/ec2-instance"
+  #  ami_id             = "ami-05f991c49d264708f"
   instance_type      = "t2.micro"
   instance_name      = "private-instance"
   subnet_id          = module.vpc.private_subnet_id
   is_public          = false
-  key_name           = "your-key-pair-name"
+  key_name           = aws_key_pair.my_key.key_name
   security_group_ids = [aws_security_group.private_instance.id]
 }
