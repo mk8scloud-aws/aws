@@ -107,7 +107,8 @@ resource "aws_route_table_association" "private_assoc" {
 
 # Security Group: Allow SSH in, All Out
 resource "aws_security_group" "bastion_sg" {
-  name        = "${var.vpc_name}-bastion-sg"
+#  name        = "${var.vpc_name}-bastion-sg"
+  name        = "bastion-vm-sg"
   description = "Allow SSH from my external IP ONLY."
   vpc_id      = aws_vpc.main.id
 
@@ -132,7 +133,7 @@ resource "aws_security_group" "bastion_sg" {
 }
 
 resource "aws_security_group" "private_vm_sg" {
-  name   = "private-vm-ssh"
+  name   = "private-vm-sg"
   vpc_id = aws_vpc.main.id
 
   ingress {
@@ -153,4 +154,3 @@ resource "aws_security_group" "private_vm_sg" {
     Name = "${var.vpc_name}-private-vm-sg"
   }
 }
-
