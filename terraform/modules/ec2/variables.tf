@@ -26,10 +26,6 @@ variable "public_subnet_id" {
   description = "ID of the public subnet"
 }
 
-variable "security_group_id" {
-  type        = string
-  description = "ID of the security group"
-}
 variable "private_subnet_id" {
   type        = string
   description = "Private subnet ID for the internal Ubuntu VM"
@@ -37,4 +33,9 @@ variable "private_subnet_id" {
 variable "private_vm_sg" {
   type        = string
   description = "Private Security Group for the internal Ubuntu VM"
+}
+
+variable "security_group_id" {
+  description = "Security group ID for public (bastion) instance"
+  type        = string
 }

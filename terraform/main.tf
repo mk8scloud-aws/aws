@@ -1,12 +1,12 @@
-variable "public_key_path" {
-  description = "Path to your public SSH key"
-  type        = string
-}
+#variable "public_key_path" {
+#  description = "Path to your public SSH key"
+#  type        = string
+#}
 
-variable "ami_id" {
-  description = "AMI ID for the EC2 instance"
-  type        = string
-}
+#variable "ami_id" {
+#  description = "AMI ID for the EC2 instance"
+#  type        = string
+#}
 
 module "vpc" {
   source              = "./modules/basic-vpc"
@@ -24,7 +24,8 @@ module "ec2" {
   public_key_path   = var.public_key_path
   vpc_name          = "mk-aws-vpc"
   public_subnet_id  = module.vpc.public_subnet_id
-  security_group_id = module.vpc.security_group_id
+#  security_group_id = module.vpc.security_group_id
+  security_group_id = module.vpc.bastion_sg_id
   private_subnet_id = module.vpc.private_subnet_id
   private_vm_sg     = module.vpc.private_vm_sg
 }
